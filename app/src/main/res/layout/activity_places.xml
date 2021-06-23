@@ -1,27 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-    </data>
-<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".ui.placeshome.PlacesActivity"
-    tools:deviceIds="wear">
+    tools:context=".ui.placeshome.PlacesActivity">
+    <data>
+        <variable
+            name="adapter"
+            type="com.neta.systems.places.data.adapters.PlacesAdapter" />
+        <variable
+            name="progressVisibility"
+            type="Integer"/>
+    </data>
 
-    <FrameLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/places_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/inner_frame_layout_padding">
+        android:focusable="true">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+        <include
+            android:id="@+id/view_progress"
+            layout="@layout/appbar_with_progress" />
 
-    </FrameLayout>
-</androidx.wear.widget.BoxInsetLayout>
+        <FrameLayout
+            android:id="@+id/frame_progress_places"
+            android:layout_width="match_parent"
+            android:layout_height="9dp"
+            android:layout_marginTop="-4dp"
+            android:visibility="visible"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress_places"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="2dp"
+                android:indeterminate="true"
+                android:progress="30"
+                android:visibility="@{safeUnbox(progressVisibility)}"/>
+
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/box_inset_layout_padding"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/inner_frame_layout_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/posts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:adapter="@{adapter}"/>
+
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

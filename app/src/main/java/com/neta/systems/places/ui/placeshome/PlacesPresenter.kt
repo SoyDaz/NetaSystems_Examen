@@ -20,11 +20,12 @@ class PlacesPresenter (placesView: PlacesView) : BasePresenter<PlacesView>(place
     }
 
     fun loadPlaces() {
+        view.showLoading()
         subscription = api
                 .getPosts()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .doOnTerminate{}
+                .doOnTerminate{ view.hideLoading() }
                 .subscribe({ postList -> view.updatePlaces(postList) })
     }
 
