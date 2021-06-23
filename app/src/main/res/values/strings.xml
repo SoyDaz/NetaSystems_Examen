@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Places</string>
+    <string name="title_activity_places">PlacesActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="unknown_error">An unknown error occurred.</string>
 </resources>

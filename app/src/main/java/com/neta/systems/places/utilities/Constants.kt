@@ -6,3 +6,4 @@ package com.neta.systems.places.utilities
 
 const val URL_DEVELOPING = ""
 const val DATABASE_NAME = "places-db"
+const val BASE_URL: String = "https://jsonplaceholder.typicode.com"
