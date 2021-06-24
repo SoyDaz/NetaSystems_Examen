@@ -5,17 +5,21 @@ import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.neta.systems.places.R
 import com.neta.systems.places.common.BaseActivity
 import com.neta.systems.places.data.adapters.PlacesAdapter
 import com.neta.systems.places.data.model.Post
 import com.neta.systems.places.databinding.ActivityPlacesBinding
 
-class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
+class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView, OnMapReadyCallback {
 
     private lateinit var binding: ActivityPlacesBinding
     private lateinit var linearLayoutManager: LinearLayoutManager
     private val postAdapter = PlacesAdapter(this)
+    private lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +29,7 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
         linearLayoutManager = LinearLayoutManager(this)
         binding.posts.layoutManager = linearLayoutManager
         presenter.onViewCreated()
+        createMapFragment()
     }
 
     override fun onDestroy() {
@@ -54,4 +59,15 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
     override fun instantiatePresenter(): PlacesPresenter {
         return PlacesPresenter(this)
     }
+
+    private fun createMapFragment() {
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentMap) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+    }
+
 }

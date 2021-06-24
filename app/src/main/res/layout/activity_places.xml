@@ -52,7 +52,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/inner_frame_layout_padding"
+                android:padding="@dimen/box_inset_layout_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,15 @@
                     android:id="@+id/posts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:adapter="@{adapter}"/>
+                    app:adapter="@{adapter}"
+                    android:visibility="invisible"/>
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".ui.placeshome.PlacesActivity" />
 
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
