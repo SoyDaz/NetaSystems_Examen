@@ -5,17 +5,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.placeshome.PlacesActivity">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="adapter"
             type="com.neta.systems.places.data.adapters.PlacesAdapter" />
         <variable
             name="progressVisibility"
             type="Integer"/>
+        <variable
+            name="presenter"
+            type="com.neta.systems.places.ui.placeshome.PlacesPresenter"/>
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
     </data>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/places_view"
+        android:id="@+id/context_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true">
@@ -49,30 +56,68 @@
             android:padding="@dimen/box_inset_layout_padding"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <FrameLayout
+            <!--Event Binding : Method reference-->
+            <Button
+                android:id="@+id/button_mapa"
+                android:onClick="@{presenter::onClickMaps}"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/action_mapa"
+                app:layout_constraintEnd_toStartOf="@+id/button_places"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_places"
+                android:onClick="@{presenter::onClickPlaces}"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/action_places"
+                app:layout_constraintEnd_toStartOf="@+id/button_connect_api"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/button_mapa"
+                app:layout_constraintTop_toTopOf="@+id/button_mapa" />
+
+            <Button
+                android:id="@+id/button_connect_api"
+                android:onClick="@{presenter::onClickConnect}"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/action_connect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/button_places"
+                app:layout_constraintTop_toTopOf="@+id/button_places" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="58dp"
                 android:padding="@dimen/box_inset_layout_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/button_mapa">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/posts"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:adapter="@{adapter}"
-                    android:visibility="invisible"/>
+            </androidx.fragment.app.FragmentContainerView>
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/fragmentMap"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:context=".ui.placeshome.PlacesActivity" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/posts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:adapter="@{adapter}" />
 
-            </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

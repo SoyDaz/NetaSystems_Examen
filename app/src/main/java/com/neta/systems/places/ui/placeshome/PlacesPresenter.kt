@@ -1,7 +1,8 @@
 package com.neta.systems.places.ui.placeshome
 
-import com.neta.systems.places.R
-import com.neta.systems.places.api.PlacesApi
+import android.app.Application
+import android.view.View
+import com.neta.systems.places.api.ApiServiceInterface
 import com.neta.systems.places.common.BasePresenter
 import io.reactivex.disposables.Disposable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,23 +11,50 @@ import javax.inject.Inject
 
 
 class PlacesPresenter (placesView: PlacesView) : BasePresenter<PlacesView>(placesView) {
+
     @Inject
-    lateinit var api: PlacesApi
+    lateinit var apiServiceInterface: ApiServiceInterface
 
     private var subscription: Disposable? = null
 
-    override fun onViewCreated() {
-        loadPlaces()
+    fun onClickMaps(v: View) {
+        view.onMapClick(v)
+    }
+
+    fun onClickPlaces(v: View) {
+        view.onPlacesClick(v)
+    }
+
+    fun onClickConnect(v: View) {
+        getWeatherApi()
+    }
+
+
+
+    override fun onViewCreated(application: Application) {
+        view.hideLoading()
+        //room = WRepository(application)
     }
 
     fun loadPlaces() {
         view.showLoading()
-        subscription = api
+        subscription = apiServiceInterface
                 .getPosts()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnTerminate{ view.hideLoading() }
                 .subscribe({ postList -> view.updatePlaces(postList) })
+    }
+
+    fun getWeatherApi() {
+        view.showLoading()
+        subscription = apiServiceInterface
+            .getWeatherMarker()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .doOnTerminate{ view.hideLoading() }
+            .subscribe({ resultAPI -> view.updateWeather(resultAPI) })
+
     }
 
     override fun onViewDestroyed() {

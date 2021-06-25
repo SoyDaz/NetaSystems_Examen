@@ -5,10 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:elevation="4dp"
-    app:titleTextAppearance="@style/Toolbar"
     app:titleTextColor="@color/black"
     app:title="@string/app_name"
-    android:background="@color/white"
-    app:popupTheme="@style/Theme.Places.PopupOverlay">
+    android:background="@color/white">
 
 </androidx.appcompat.widget.Toolbar>

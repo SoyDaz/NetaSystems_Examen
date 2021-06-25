@@ -1,5 +1,6 @@
 package com.neta.systems.places.data.adapters
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.neta.systems.places.data.model.Post
 import com.neta.systems.places.databinding.ActivityPlacesBinding
 import com.neta.systems.places.databinding.ItemPlaceBinding
 
-class PlacesAdapter (private val context: Context): RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder>() {
+class PlacesAdapter (private val activity: Activity): RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder>() {
 
     private var posts: List<Post> = CollectionUtils.listOf()
 
@@ -23,7 +24,7 @@ class PlacesAdapter (private val context: Context): RecyclerView.Adapter<PlacesA
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesViewHolder {
-        val layoutInflater = LayoutInflater.from(context)
+        val layoutInflater = LayoutInflater.from(activity)
         val binding: ItemPlaceBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item_place, parent, false)
         return PlacesViewHolder(binding)
     }

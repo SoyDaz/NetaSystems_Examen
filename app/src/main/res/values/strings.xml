@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Places</string>
+    <string name="app_name">Mapa climático</string>
     <string name="title_activity_places">PlacesActivity</string>
     <!--
     This string is used for square devices and overridden by hello_world in
@@ -12,4 +12,10 @@
     <string name="supporting_text">Body text</string>
     <string name="action_2">Ver Mapa</string>
     <string name="action_1">Eliminar</string>
+    <string name="action_mapa">Mapa</string>
+    <string name="action_places">lugares</string>
+    <string name="action_connect">conectar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_label">Click</string>
 </resources>
