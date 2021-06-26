@@ -6,7 +6,7 @@
 
         <variable
             name="post"
-            type="com.neta.systems.places.data.model.Post" />
+            type="com.neta.systems.places.data.local.sqlite.RegisterWether" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,14 +49,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{post.title}"
+                    android:text=""
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/secondary_text"
+                    android:text="@{post.main}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
 
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{post.body}"
+                    android:text="@{post.description}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
 
@@ -72,6 +72,7 @@
 
             <!-- Buttons -->
             <LinearLayout
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"

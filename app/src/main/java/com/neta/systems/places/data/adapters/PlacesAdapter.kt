@@ -1,23 +1,21 @@
 package com.neta.systems.places.data.adapters
 
-import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.util.CollectionUtils
 import com.neta.systems.places.R
-import com.neta.systems.places.data.model.Post
-import com.neta.systems.places.databinding.ActivityPlacesBinding
+import com.neta.systems.places.data.local.sqlite.RegisterWether
 import com.neta.systems.places.databinding.ItemPlaceBinding
 
-class PlacesAdapter (private val activity: Activity): RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder>() {
+class PlacesAdapter(private val activity: FragmentActivity?): RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder>() {
 
-    private var posts: List<Post> = CollectionUtils.listOf()
+    private var posts: List<RegisterWether> = CollectionUtils.listOf()
 
     class PlacesViewHolder(private val binding: ItemPlaceBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind (post: Post) {
+        fun bind (post: RegisterWether) {
             binding.post = post
             binding.executePendingBindings()
         }
@@ -37,7 +35,7 @@ class PlacesAdapter (private val activity: Activity): RecyclerView.Adapter<Place
         return posts.size
     }
 
-    fun updatePosts(posts: List<Post>) {
+    fun updatePosts(posts: List<RegisterWether>) {
         this.posts = posts
         notifyDataSetChanged()
     }

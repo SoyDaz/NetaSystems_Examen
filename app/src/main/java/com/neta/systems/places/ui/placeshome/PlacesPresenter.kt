@@ -29,11 +29,8 @@ class PlacesPresenter (placesView: PlacesView) : BasePresenter<PlacesView>(place
         getWeatherApi()
     }
 
-
-
     override fun onViewCreated(application: Application) {
         view.hideLoading()
-        //room = WRepository(application)
     }
 
     fun loadPlaces() {

@@ -9,7 +9,8 @@ import com.google.gson.Gson
 import com.neta.systems.places.R
 import com.neta.systems.places.common.BaseActivity
 import com.neta.systems.places.data.adapters.PlacesAdapter
-import com.neta.systems.places.data.local.room.entity.WeatherEntity
+import com.neta.systems.places.data.local.sqlite.RegisterWether
+import com.neta.systems.places.data.local.sqlite.SQLiteHelper
 import com.neta.systems.places.data.model.Post
 import com.neta.systems.places.data.model.Weather
 import com.neta.systems.places.data.model.WeatherResult
@@ -22,6 +23,7 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
     private lateinit var binding: ActivityPlacesBinding
     private lateinit var linearLayoutManager: LinearLayoutManager
     private val postAdapter = PlacesAdapter(this)
+    internal lateinit var db: SQLiteHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
         binding.presenter = instantiatePresenter()
         linearLayoutManager = LinearLayoutManager(this)
         binding.posts.layoutManager = linearLayoutManager
+        db = SQLiteHelper(this)
     }
 
     override fun onDestroy() {
@@ -57,8 +60,8 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
     }
 
     override fun updatePlaces(posts: List<Post>) {
-        binding.posts.adapter = postAdapter
-        postAdapter.updatePosts(posts)
+        //binding.posts.adapter = postAdapter
+        //postAdapter.updatePosts(posts)
     }
 
     override fun updateWeather(resultApi: String) {
@@ -77,13 +80,15 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
 
         if(model.weather != null) {
             var mWeather: Weather = model.weather!!.get(0)
-            var weatherEntity = WeatherEntity(mWeather.id!!,mWeather.main!!, mWeather.description!!)
+            //var weatherEntity = WeatherEntity(mWeather.id!!,mWeather.main!!, mWeather.description!!) - Room Entity
+            var weatherEntity = RegisterWether(mWeather.id!!,mWeather.main!!, mWeather.description!!)
             insertRoom(weatherEntity)
         }
     }
 
-    private fun insertRoom(weather: WeatherEntity) {
-        //presenter.room.insert(weather)
+    private fun insertRoom(weather: RegisterWether) {
+        //presenter.room.insert(weather) - Room Dao
+        db.addWether(weather)
     }
 
     override fun showError(error: String) {
