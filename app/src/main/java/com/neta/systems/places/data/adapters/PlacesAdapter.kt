@@ -10,9 +10,9 @@ import com.neta.systems.places.R
 import com.neta.systems.places.data.local.sqlite.RegisterWether
 import com.neta.systems.places.databinding.ItemPlaceBinding
 
-class PlacesAdapter(private val activity: FragmentActivity?): RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder>() {
+class PlacesAdapter(private val activity: FragmentActivity?, val items: List<RegisterWether>): RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder>() {
 
-    private var posts: List<RegisterWether> = CollectionUtils.listOf()
+    private var posts: List<RegisterWether> = items
 
     class PlacesViewHolder(private val binding: ItemPlaceBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (post: RegisterWether) {

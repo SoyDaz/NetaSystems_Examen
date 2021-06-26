@@ -18,16 +18,10 @@ import com.neta.systems.places.databinding.FragmentMapsBinding
 private const val ARG_PARAM1 = "model"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MapsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MapsFragment : Fragment(R.layout.fragment_maps) , OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private var mWeatherLocation: LatLng? = null
-    //(-31.952854, 115.857342)
     private var param1: WeatherResult? = null
     private var param2: String? = null
 

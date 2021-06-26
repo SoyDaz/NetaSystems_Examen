@@ -2,6 +2,7 @@ package com.neta.systems.places.ui.placeshome
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,7 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
 
     private lateinit var binding: ActivityPlacesBinding
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val postAdapter = PlacesAdapter(this)
+    //private val postAdapter = PlacesAdapter(this)
     internal lateinit var db: SQLiteHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,6 +90,7 @@ class PlacesActivity : BaseActivity<PlacesPresenter>(), PlacesView {
     private fun insertRoom(weather: RegisterWether) {
         //presenter.room.insert(weather) - Room Dao
         db.addWether(weather)
+        Toast.makeText(getContext(), "Se guardo un registro", Toast.LENGTH_LONG).show()
     }
 
     override fun showError(error: String) {

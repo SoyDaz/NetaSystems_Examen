@@ -39,9 +39,6 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
                             cursor.getInt(cursor.getColumnIndex(TB_COLUMN_ID)),
                             cursor.getString(cursor.getColumnIndex(TB_COLUMN_MAIN)),
                             cursor.getString(cursor.getColumnIndex(TB_COLUMN_DESCRIPTION)))
-                    //whether.id = cursor.getInt(cursor.getColumnIndex(TB_COLUMN_ID))
-                    //whether.main = cursor.getString(cursor.getColumnIndex(TB_COLUMN_MAIN))
-                    //whether.description = cursor.getString(cursor.getColumnIndex(TB_COLUMN_DESCRIPTION))
                     listWethers.add(whether)
                 } while (cursor.moveToNext())
             }
@@ -52,7 +49,6 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     fun addWether(paramWhether: RegisterWether) {
         val db = this.writableDatabase
         val values = ContentValues()
-        //values.put(TB_COLUMN_ID, paramWhether.id)
         values.put(TB_COLUMN_MAIN, paramWhether.main)
         values.put(TB_COLUMN_DESCRIPTION, paramWhether.description)
         db.insert(TB_NAME, null, values)

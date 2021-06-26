@@ -1,10 +1,12 @@
 package com.neta.systems.places.ui.other
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neta.systems.places.R
@@ -35,24 +37,25 @@ class PlacesFragment : Fragment(R.layout.fragment_maps) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var binding: FragmentPlacesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_places, container, false)
-        val root = binding.getRoot()
-        postAdapter = PlacesAdapter(activity)
-        linearLayoutManager = LinearLayoutManager(context)
-        binding.posts.adapter = postAdapter
-        binding.posts.layoutManager = linearLayoutManager
+        //val root = binding.getRoot()
         db = SQLiteHelper(requireActivity())
+
+
+        linearLayoutManager = LinearLayoutManager(requireContext())
+        binding.posts.layoutManager = linearLayoutManager
         refreshData()
-        return root
+        binding.posts.adapter = postAdapter
+        return binding.root
     }
 
     fun refreshData() {
         listWethers = db.allWethers
-        println("Muestra")
-        postAdapter!!.updatePosts(listWethers)
+        postAdapter = PlacesAdapter(activity, listWethers)
+        Toast.makeText(getContext(), "Existen ${listWethers.size} registros en la Base de Datos", Toast.LENGTH_LONG).show()
+        //postAdapter!!.updatePosts(listWethers)
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             PlacesFragment().apply {
